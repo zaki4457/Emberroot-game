@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#0a0a1a" />
+    <meta
+      name="description"
+      content="Emberroot — The World Remembers. A top-down roguelite action RPG."
+    />
+    <title>EMBERROOT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="game-container">
+      <canvas id="game-canvas"></canvas>
+      <div id="vignette"></div>
+      <div id="flash-overlay"></div>
+      <div id="ui-layer">
+        <!-- LOADING -->
+        <div id="screen-loading" class="screen">
+          <div class="menu-title flicker">EMBERROOT</div>
+          <div class="subtitle">The World Remembers</div>
+          <div class="loading-bar"><div id="loading-fill"></div></div>
+          <div id="loading-text" class="muted">Waking the roots…</div>
+        </div>
+
+        <!-- MAIN MENU -->
+        <div id="screen-menu" class="screen hidden">
+          <div class="menu-title">EMBERROOT</div>
+          <div class="subtitle">The World Remembers</div>
+          <div class="menu-stack">
+            <button class="menu-button" data-action="new-game">New Game</button>
+            <button class="menu-button" id="btn-continue" data-action="continue" disabled>
+              Continue
+            </button>
+            <button class="menu-button" data-action="challenges">Challenges</button>
+            <button class="menu-button" data-action="compendium">Compendium</button>
+            <button class="menu-button" data-action="settings">Settings</button>
+          </div>
+          <div class="menu-hint muted">
+            WASD move · J melee · K ranged · Space dodge · E interact · Esc pause
+          </div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud" class="hidden">
+          <div class="hud-left">
+            <div class="bar-wrap">
+              <div class="bar-label">HP</div>
+              <div class="hp-bar">
+                <div id="hp-fill" class="hp-bar-fill"></div>
+                <div id="hp-shield" class="hp-shield-fill"></div>
+              </div>
+              <div id="hp-text" class="bar-text">100/100</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-label">SP</div>
+              <div class="stamina-bar">
+                <div id="stamina-fill" class="stamina-bar-fill"></div>
+              </div>
+            </div>
+            <div id="status-icons" class="status-effect-icons"></div>
+            <div id="blessing-strip" class="blessing-strip"></div>
+          </div>
+          <div id="combo-counter" class="combo-counter hidden">0 HIT</div>
+          <div class="hud-right">
+            <canvas id="minimap" width="120" height="120"></canvas>
+            <div id="hud-meta" class="hud-meta">
+              <span id="gold-text">◆ 0</span>
+              <span id="essence-text">✦ 0</span>
+              <span id="floor-text">F1</span>
+            </div>
+          </div>
+          <div id="boss-wrap" class="boss-hp-wrap hidden">
+            <div id="boss-name" class="boss-name">BOSS</div>
+            <div class="boss-hp-bar">
+              <div id="boss-hp-fill" class="boss-hp-fill"></div>
+            </div>
+            <div id="boss-phase" class="boss-phase"></div>
+          </div>
+          <div id="interact-prompt" class="interact-prompt hidden">[E] Interact</div>
+          <div id="room-banner" class="room-banner hidden"></div>
+          <div id="synergy-hud" class="synergy-hud"></div>
+        </div>
+
+        <!-- DIALOGUE -->
+        <div id="dialogue-box" class="dialogue-box hidden">
+          <div class="dialogue-portrait" id="dialogue-portrait"></div>
+          <div class="dialogue-body">
+            <div class="dialogue-speaker" id="dialogue-speaker"></div>
+            <div class="dialogue-text" id="dialogue-text"></div>
+            <div id="dialogue-choices"></div>
+            <div id="dialogue-continue" class="muted hidden">▼</div>
+          </div>
+        </div>
+
+        <!-- BLESSING SELECT -->
+        <div id="blessing-overlay" class="blessing-overlay hidden">
+          <div class="overlay-title">A Warden Offers Power</div>
+          <div id="blessing-cards" class="blessing-row"></div>
+          <div class="muted">Choose one blessing</div>
+        </div>
+
+        <!-- CURSE SELECT -->
+        <div id="curse-overlay" class="blessing-overlay hidden">
+          <div class="overlay-title">A Curse for Greater Reward</div>
+          <div id="curse-cards" class="blessing-row"></div>
+          <button class="menu-button" data-action="skip-curse">Refuse the Curse</button>
+        </div>
+
+        <!-- PAUSE -->
+        <div id="pause-overlay" class="pause-overlay hidden">
+          <div class="overlay-title">Paused</div>
+          <button class="menu-button" data-action="resume">Resume</button>
+          <button class="menu-button" data-action="inventory">Inventory</button>
+          <button class="menu-button" data-action="skills">Skill Tree</button>
+          <button class="menu-button" data-action="quests">Quest Log</button>
+          <button class="menu-button" data-action="settings">Settings</button>
+          <button class="menu-button" data-action="save">Save</button>
+          <button class="menu-button" data-action="to-menu">Return to Menu</button>
+        </div>
+
+        <!-- SETTINGS -->
+        <div id="settings-overlay" class="pause-overlay hidden">
+          <div class="overlay-title">Settings</div>
+          <label class="setting-row">Master <input id="vol-master" type="range" min="0" max="100" value="80" /></label>
+          <label class="setting-row">Music <input id="vol-music" type="range" min="0" max="100" value="60" /></label>
+          <label class="setting-row">SFX <input id="vol-sfx" type="range" min="0" max="100" value="80" /></label>
+          <label class="setting-row">Shake <input id="shake-amt" type="range" min="0" max="100" value="100" /></label>
+          <label class="setting-row"><input id="reduce-flash" type="checkbox" /> Reduce flashes</label>
+          <label class="setting-row"><input id="show-dmg" type="checkbox" checked /> Damage numbers</label>
+          <label class="setting-row"><input id="autoaim" type="checkbox" /> Assist aim</label>
+          <button class="menu-button" data-action="close-settings">Back</button>
+        </div>
+
+        <!-- DEATH -->
+        <div id="death-screen" class="death-screen hidden">
+          <div class="overlay-title crimson">You Fell</div>
+          <div id="death-stats" class="stats-block"></div>
+          <button class="menu-button" data-action="retry">Return to Hub</button>
+          <button class="menu-button" data-action="to-menu">Main Menu</button>
+        </div>
+
+        <!-- VICTORY / ENDING -->
+        <div id="ending-screen" class="ending-screen hidden">
+          <div id="ending-title" class="overlay-title">Ending</div>
+          <div id="ending-text" class="ending-text"></div>
+          <button class="menu-button" data-action="to-menu">Main Menu</button>
+        </div>
+
+        <!-- INVENTORY -->
+        <div id="inventory-overlay" class="panel-overlay hidden">
+          <div class="panel">
+            <div class="panel-title">Inventory <span class="muted">I / Tab</span></div>
+            <div class="inv-layout">
+              <div id="equip-slots" class="equip-col"></div>
+              <div id="inv-grid" class="inv-grid"></div>
+              <div id="inv-detail" class="inv-detail muted">Select an item</div>
+            </div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- SKILL TREE -->
+        <div id="skills-overlay" class="panel-overlay hidden">
+          <div class="panel wide">
+            <div class="panel-title">Skill Tree <span id="mastery-points" class="muted"></span></div>
+            <div id="skill-tree" class="skill-tree-container"></div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- QUEST LOG -->
+        <div id="quests-overlay" class="panel-overlay hidden">
+          <div class="panel">
+            <div class="panel-title">Quest Log</div>
+            <div id="quest-list" class="scroll-list"></div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- SHOP -->
+        <div id="shop-overlay" class="panel-overlay hidden">
+          <div class="panel">
+            <div class="panel-title">Shop <span id="shop-gold" class="muted"></span></div>
+            <div id="shop-grid" class="inv-grid"></div>
+            <div id="shop-detail" class="inv-detail"></div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- MAP / REGION SELECT -->
+        <div id="map-overlay" class="panel-overlay hidden">
+          <div class="panel wide">
+            <div class="panel-title">The Nine Roots</div>
+            <div id="region-map" class="region-map"></div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- COMPENDIUM -->
+        <div id="compendium-overlay" class="panel-overlay hidden">
+          <div class="panel wide">
+            <div class="panel-title">Compendium</div>
+            <div class="tab-row">
+              <button class="tab-btn active" data-tab="bestiary">Bestiary</button>
+              <button class="tab-btn" data-tab="achievements">Achievements</button>
+              <button class="tab-btn" data-tab="lore">Lore</button>
+              <button class="tab-btn" data-tab="stats">Stats</button>
+            </div>
+            <div id="compendium-body" class="scroll-list"></div>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- CHALLENGES -->
+        <div id="challenge-overlay" class="panel-overlay hidden">
+          <div class="panel">
+            <div class="panel-title">Challenges</div>
+            <button class="menu-button" data-action="daily">Daily Challenge</button>
+            <button class="menu-button" data-action="endless">Endless Mode</button>
+            <button class="menu-button" data-action="boss-rush">Boss Rush</button>
+            <button class="menu-button" data-action="ngplus">New Game+</button>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+
+        <!-- LEVEL UP -->
+        <div id="levelup-toast" class="toast hidden">LEVEL UP</div>
+        <div id="toast-stack" class="toast-stack"></div>
+
+        <!-- SAVE SLOTS -->
+        <div id="saveload-overlay" class="panel-overlay hidden">
+          <div class="panel">
+            <div class="panel-title">Save / Load</div>
+            <div id="save-slots"></div>
+            <button class="menu-button" data-action="export-save">Export Save</button>
+            <button class="menu-button" data-action="import-save">Import Save</button>
+            <button class="menu-button" data-action="close-panel">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOUCH CONTROLS -->
+      <div id="touch-controls" class="hidden">
+        <div id="joystick">
+          <div id="joystick-knob"></div>
+        </div>
+        <div id="touch-buttons">
+          <button data-touch="attack">ATK</button>
+          <button data-touch="ranged">RNG</button>
+          <button data-touch="dodge">DSH</button>
+          <button data-touch="interact">USE</button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

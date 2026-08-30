@@ -1,0 +1,47 @@
+import type { SynergyData } from "./types";
+
+export const SYNERGIES: SynergyData[] = [
+  { id: "flame_dance", name: "Flame Dance", required: ["ember_strike", "ember_pulse"], description: "Melee hits erupt in a ring of fire.", damageBonus: 0.15, specialEffect: "melee_nova", mods: { area: 0.2 } },
+  { id: "cinder_mail", name: "Cinder Mail", required: ["ember_ward", "ember_echo"], description: "Taking a hit scorches nearby foes.", damageBonus: 0.05, specialEffect: "thorns_burn", mods: { defense: 4 } },
+  { id: "phoenix_pact", name: "Phoenix Pact", required: ["ember_bloom", "ember_ward"], description: "Once per room, fatal damage becomes a blaze of rebirth.", damageBonus: 0, specialEffect: "phoenix", mods: { maxHp: 12 } },
+  { id: "wildfire", name: "Wildfire", required: ["ember_surge", "ember_pulse"], description: "Moving leaves a trail of embers.", damageBonus: 0.1, specialEffect: "fire_trail", mods: { moveSpeed: 0.08 } },
+  { id: "heartfire_edge", name: "Heartfire Edge", required: ["ember_strike", "ember_echo"], description: "Critical hits explode.", damageBonus: 0.2, specialEffect: "crit_explode", mods: { critDamage: 0.25 } },
+  { id: "iron_glacier", name: "Iron Glacier", required: ["frost_ward", "frost_grasp"], description: "Slowing an enemy grants a shard of shield.", damageBonus: 0.05, specialEffect: "slow_shield", mods: { defense: 6 } },
+  { id: "shattered_hour", name: "Shattered Hour", required: ["frost_echo", "frost_surge"], description: "Dodge freezes nearby time.", damageBonus: 0.08, specialEffect: "dodge_freeze", mods: { dodgeIFrames: 0.05 } },
+  { id: "whiteout", name: "Whiteout", required: ["frost_pulse", "frost_grasp"], description: "AoE hits always apply slow.", damageBonus: 0.1, specialEffect: "aoe_slow", mods: { area: 0.15 } },
+  { id: "permafrost_edge", name: "Permafrost Edge", required: ["frost_strike", "frost_ward"], description: "Melee hits ignore 20% defense.", damageBonus: 0.12, specialEffect: "pierce_def", mods: { damage: 0.08 } },
+  { id: "aurora", name: "Aurora", required: ["frost_bloom", "storm_bloom"], description: "Healing pulses shock nearby enemies.", damageBonus: 0.05, specialEffect: "heal_shock", mods: { lifesteal: 0.04 } },
+  { id: "chain_hymn", name: "Chain Hymn", required: ["storm_echo", "storm_pulse"], description: "Lightning chains +1 additional target.", damageBonus: 0.12, specialEffect: "chain_plus", mods: { projectile: 1 } },
+  { id: "godspeed", name: "Godspeed", required: ["storm_surge", "storm_strike"], description: "After a dodge, next attack is instant.", damageBonus: 0.1, specialEffect: "dodge_haste", mods: { attackSpeed: 0.12 } },
+  { id: "fulgur_cage", name: "Fulgur Cage", required: ["storm_ward", "storm_grasp"], description: "Parries discharge a shock nova.", damageBonus: 0.08, specialEffect: "parry_shock", mods: { defense: 3 } },
+  { id: "skyfall", name: "Skyfall", required: ["storm_pulse", "ember_pulse"], description: "Periodic meteor at the nearest foe.", damageBonus: 0.18, specialEffect: "meteor", mods: { area: 0.1 } },
+  { id: "static_blood", name: "Static Blood", required: ["storm_bloom", "void_bloom"], description: "Lifesteal also restores stamina.", damageBonus: 0.05, specialEffect: "leech_stamina", mods: { lifesteal: 0.03 } },
+  { id: "unmaking", name: "Unmaking", required: ["void_strike", "void_echo"], description: "Crits inflict Vulnerable.", damageBonus: 0.16, specialEffect: "crit_vuln", mods: { critChance: 0.06 } },
+  { id: "event_horizon", name: "Event Horizon", required: ["void_grasp", "void_pulse"], description: "Enemies killed pull others inward.", damageBonus: 0.12, specialEffect: "kill_pull", mods: { area: 0.1 } },
+  { id: "nightstep", name: "Nightstep", required: ["void_surge", "void_ward"], description: "Dodge grants brief stealth.", damageBonus: 0.05, specialEffect: "dodge_stealth", mods: { dodgeIFrames: 0.04 } },
+  { id: "blood_moon", name: "Blood Moon", required: ["void_bloom", "ember_strike"], description: "Execute enemies below 12% HP.", damageBonus: 0.1, specialEffect: "execute", mods: { lifesteal: 0.05 } },
+  { id: "null_aegis", name: "Null Aegis", required: ["void_ward", "frost_ward"], description: "Shields last 30% longer.", damageBonus: 0, specialEffect: "shield_time", mods: { defense: 8 } },
+  { id: "cinderfrost", name: "Cinderfrost", required: ["ember_strike", "frost_strike"], description: "Unlocks Melt reaction bonus damage.", damageBonus: 0.2, specialEffect: "melt_bonus", mods: { damage: 0.1 } },
+  { id: "overload", name: "Overload Pact", required: ["ember_echo", "storm_echo"], description: "Burn+Shock detonations are larger.", damageBonus: 0.15, specialEffect: "overload_bonus", mods: { area: 0.2 } },
+  { id: "superconduct", name: "Superconduct", required: ["frost_grasp", "storm_grasp"], description: "Shocked frozen foes shatter armor.", damageBonus: 0.12, specialEffect: "superconduct", mods: {} },
+  { id: "corrosion", name: "Corrosion", required: ["ember_pulse", "void_echo"], description: "Burn ticks also apply poison.", damageBonus: 0.08, specialEffect: "burn_poison", mods: {} },
+  { id: "bloodstorm", name: "Bloodstorm", required: ["void_strike", "ember_pulse"], description: "Bleed + Burn become a tempest.", damageBonus: 0.18, specialEffect: "bloodstorm", mods: { lifesteal: 0.04 } },
+  { id: "electrocharged", name: "Electro-Charged", required: ["storm_pulse", "frost_pulse"], description: "AoE leaves lingering sparks.", damageBonus: 0.12, specialEffect: "lingering_spark", mods: { area: 0.1 } },
+  { id: "warden_triad_ember", name: "Ember Triad", required: ["ember_strike", "ember_ward", "ember_bloom"], description: "All ember blessings gain +10%.", damageBonus: 0.1, specialEffect: "warden_amp_ember", mods: { damage: 0.08 } },
+  { id: "warden_triad_frost", name: "Frost Triad", required: ["frost_strike", "frost_ward", "frost_bloom"], description: "All frost blessings gain +10%.", damageBonus: 0.1, specialEffect: "warden_amp_frost", mods: { defense: 6 } },
+  { id: "warden_triad_storm", name: "Storm Triad", required: ["storm_strike", "storm_ward", "storm_bloom"], description: "All storm blessings gain +10%.", damageBonus: 0.1, specialEffect: "warden_amp_storm", mods: { attackSpeed: 0.1 } },
+  { id: "warden_triad_void", name: "Void Triad", required: ["void_strike", "void_ward", "void_bloom"], description: "All void blessings gain +10%.", damageBonus: 0.1, specialEffect: "warden_amp_void", mods: { critChance: 0.08 } },
+  { id: "glass_cannon", name: "Glass Heart", required: ["ember_strike", "void_strike", "storm_surge"], description: "+40% damage, -20% max HP.", damageBonus: 0.4, specialEffect: "glass", mods: { damage: 0.4, maxHp: -20 } },
+  { id: "bulwark", name: "Root Bulwark", required: ["frost_ward", "ember_ward", "void_ward"], description: "Massive defense; you cannot be staggered.", damageBonus: 0, specialEffect: "unstoppable", mods: { defense: 16, maxHp: 20 } },
+  { id: "tempo", name: "Perfect Tempo", required: ["storm_surge", "frost_surge", "ember_surge"], description: "Combo timer never decays while moving.", damageBonus: 0.1, specialEffect: "tempo", mods: { attackSpeed: 0.15 } },
+  { id: "harvest", name: "Crimson Harvest", required: ["void_bloom", "ember_bloom", "void_echo"], description: "Kills heal 4 HP.", damageBonus: 0.05, specialEffect: "kill_heal", mods: { lifesteal: 0.06 } },
+  { id: "geomancer", name: "Geomancer", required: ["frost_pulse", "ember_pulse", "void_pulse"], description: "Every 8s, slam the earth.", damageBonus: 0.12, specialEffect: "quake", mods: { area: 0.25 } },
+  { id: "trickster", name: "Trickster", required: ["void_surge", "storm_echo", "frost_grasp"], description: "Projectiles home slightly.", damageBonus: 0.08, specialEffect: "homing", mods: { projectile: 1 } },
+  { id: "ascetic", name: "Ashen Ascetic", required: ["ember_ward", "frost_bloom"], description: "No blessings of legendary rarity needed — patience is power.", damageBonus: 0.05, specialEffect: null, mods: { xpGain: 0.2, goldGain: 0.1 } },
+  { id: "root_memory", name: "Root Memory", required: ["void_echo", "frost_echo", "ember_echo"], description: "The world remembers your hits; they strike twice, faintly.", damageBonus: 0.15, specialEffect: "double_hit", mods: { luck: 0.1 } },
+  { id: "last_warden", name: "Last Warden", required: ["ember_strike", "frost_ward", "storm_surge", "void_echo"], description: "All four wardens acknowledge you.", damageBonus: 0.25, specialEffect: "all_wardens", mods: { damage: 0.12, defense: 6, attackSpeed: 0.08, lifesteal: 0.04 } },
+];
+
+export const SYNERGY_BY_ID: Record<string, SynergyData> = Object.fromEntries(
+  SYNERGIES.map((s) => [s.id, s])
+);

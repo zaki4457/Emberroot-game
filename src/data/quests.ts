@@ -1,0 +1,91 @@
+import type { QuestData } from "./types";
+
+export const QUESTS: QuestData[] = [
+  {
+    id: "q_awaken",
+    name: "The World Remembers",
+    description: "Speak with Quill, then clear the Whispering Woods.",
+    type: "main",
+    region: "whispering_woods",
+    giver: "quill",
+    objectives: [
+      { type: "talk", target: "quill", count: 1, progress: 0 },
+      { type: "boss", target: "forest_spirit", count: 1, progress: 0 },
+    ],
+    rewards: { gold: 40, xp: 40, essence: 8 },
+  },
+  {
+    id: "q_mines",
+    name: "Glass in the Dark",
+    description: "Delve the Crystal Mines and silence the Golem.",
+    type: "main",
+    region: "crystal_mines",
+    giver: "kett",
+    objectives: [{ type: "boss", target: "crystal_golem", count: 1, progress: 0 }],
+    rewards: { gold: 60, xp: 60, essence: 12, item: "iron_shield" },
+  },
+  {
+    id: "q_peak",
+    name: "A Mountain's Grudge",
+    description: "Climb Ashen Peak and face the Emberheart Titan.",
+    type: "main",
+    region: "ashen_peak",
+    giver: "ash",
+    objectives: [{ type: "boss", target: "emberheart_titan", count: 1, progress: 0 }],
+    rewards: { gold: 80, xp: 80, essence: 16 },
+  },
+  {
+    id: "q_marsh",
+    name: "Crown of Bones",
+    description: "End the Goblin Chieftain's hold on the marsh.",
+    type: "main",
+    region: "fetid_marsh",
+    giver: "bramble",
+    objectives: [{ type: "boss", target: "goblin_chieftain", count: 1, progress: 0 }],
+    rewards: { gold: 70, xp: 70, essence: 14 },
+  },
+  {
+    id: "q_depths",
+    name: "The Last Root",
+    description: "Descend into the Nightmare Depths and wake the Emberroot.",
+    type: "main",
+    region: "nightmare_depths",
+    giver: "mira",
+    objectives: [{ type: "boss", target: "the_emberroot", count: 1, progress: 0 }],
+    rewards: { gold: 200, xp: 200, essence: 40, item: "seed_of_root" },
+  },
+  {
+    id: "q_cull",
+    name: "Culling",
+    description: "Slay 20 goblins for Bramble.",
+    type: "side",
+    region: "whispering_woods",
+    giver: "bramble",
+    objectives: [{ type: "kill", target: "goblin", count: 20, progress: 0 }],
+    rewards: { gold: 35, xp: 25, essence: 4 },
+  },
+  {
+    id: "q_fish",
+    name: "Silverfin Promise",
+    description: "Catch a fish for Niall.",
+    type: "side",
+    region: "hub",
+    giver: "niall",
+    objectives: [{ type: "collect", target: "fish", count: 1, progress: 0 }],
+    rewards: { gold: 20, xp: 15, essence: 2, item: "lucky_bone" },
+  },
+  {
+    id: "q_heal",
+    name: "Root & Remedy",
+    description: "Bring Sora 3 potions worth of trust — buy or find tonics.",
+    type: "side",
+    region: "hub",
+    giver: "sora",
+    objectives: [{ type: "collect", target: "potion", count: 3, progress: 0 }],
+    rewards: { gold: 15, xp: 20, essence: 3 },
+  },
+];
+
+export const QUEST_BY_ID: Record<string, QuestData> = Object.fromEntries(
+  QUESTS.map((q) => [q.id, q])
+);

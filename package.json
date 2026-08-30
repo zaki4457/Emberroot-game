@@ -1,0 +1,20 @@
+{
+  "name": "emberroot",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Emberroot — The World Remembers. A top-down roguelite action RPG in the browser.",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vitest": "^2.1.4"
+  }
+}
