@@ -53,3 +53,12 @@ npm test        # vitest
 npm run build   # production
 npm run typecheck
 ```
+
+## Collaborators
+
+Two agents share this branch. **Read [COLLABORATION.md](./COLLABORATION.md) first.**
+
+- **Ember** owns the web runtime (`src/engine`, combat, physics, `Game.ts` until extracted).
+- **Ash** owns `Assets/` (audio, sprites, Unity editor) plus `src/data`, UI, hub, narrative.
+
+Never both edit `src/core/Game.ts`. Never rewrite the other's `Assets/` files.
